@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JavaScript Básico - Variáveis Primitivas</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.8;
+                color: #2d2d2d;
+                background-color: #f5f5f0;
+                padding: 40px 20px;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            a {
+                color: #4a7c59;
+                text-decoration: none;
+                border-bottom: 1px dashed #4a7c59;
+            }
+
+            a:hover {
+                color: #2d5a3a;
+                border-bottom-style: solid;
+            }
+
+            .voltar {
+                display: inline-block;
+                margin-bottom: 30px;
+                font-size: 0.95rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                color: #1a1a2e;
+                margin-bottom: 10px;
+                border-bottom: 3px solid #f0c040;
+                padding-bottom: 10px;
+            }
+
+            .subtitulo {
+                font-size: 1.1rem;
+                color: #666;
+                margin-bottom: 40px;
+                font-style: italic;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+                color: #1a1a2e;
+                margin-top: 50px;
+                margin-bottom: 15px;
+                padding-left: 15px;
+                border-left: 4px solid #f0c040;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+                color: #333;
+                margin-top: 25px;
+                margin-bottom: 10px;
+            }
+
+            p, li {
+                font-size: 1.05rem;
+                margin-bottom: 12px;
+                color: #444;
+            }
+
+            .tipo-card {
+                background: #fff;
+                border-radius: 10px;
+                padding: 30px;
+                margin: 25px 0;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                border-left: 5px solid #ccc;
+            }
+
+            .tipo-card.string { border-left-color: #e74c3c; }
+            .tipo-card.number { border-left-color: #3498db; }
+            .tipo-card.boolean { border-left-color: #2ecc71; }
+            .tipo-card.undefined { border-left-color: #9b59b6; }
+            .tipo-card.null { border-left-color: #e67e22; }
+            .tipo-card.symbol { border-left-color: #1abc9c; }
+            .tipo-card.bigint { border-left-color: #34495e; }
+
+            .tipo-card h2 {
+                margin-top: 0;
+                border-left: none;
+                padding-left: 0;
+            }
+
+            .tipo-tag {
+                display: inline-block;
+                padding: 2px 12px;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: #fff;
+                margin-bottom: 15px;
+            }
+
+            .tipo-tag.string { background-color: #e74c3c; }
+            .tipo-tag.number { background-color: #3498db; }
+            .tipo-tag.boolean { background-color: #2ecc71; }
+            .tipo-tag.undefined { background-color: #9b59b6; }
+            .tipo-tag.null { background-color: #e67e22; }
+            .tipo-tag.symbol { background-color: #1abc9c; }
+            .tipo-tag.bigint { background-color: #34495e; }
+
+            code {
+                background-color: #f4f4f4;
+                padding: 2px 7px;
+                border-radius: 4px;
+                font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+                font-size: 0.95rem;
+                color: #c0392b;
+            }
+
+            pre {
+                background-color: #1e1e2e;
+                color: #cdd6f4;
+                padding: 20px 25px;
+                border-radius: 8px;
+                overflow-x: auto;
+                margin: 15px 0 20px 0;
+                font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+                font-size: 0.92rem;
+                line-height: 1.7;
+            }
+
+            pre .comment { color: #6c7086; font-style: italic; }
+            pre .keyword { color: #cba6f7; }
+            pre .string { color: #a6e3a1; }
+            pre .number { color: #fab387; }
+            pre .boolean { color: #89b4fa; }
+            pre .function { color: #89dceb; }
+            pre .output { color: #a6adc8; }
+
+            .destaque {
+                background: linear-gradient(120deg, #f0c04033 0%, #f0c04011 100%);
+                border-left: 4px solid #f0c040;
+                padding: 15px 20px;
+                margin: 20px 0;
+                border-radius: 0 8px 8px 0;
+            }
+
+            .destaque strong {
+                color: #1a1a2e;
+            }
+
+            .curiosidade {
+                background: #eef6ff;
+                border: 1px solid #b3d4fc;
+                border-radius: 8px;
+                padding: 15px 20px;
+                margin: 20px 0;
+            }
+
+            .curiosidade::before {
+                content: "💡 ";
+            }
+
+            .aviso {
+                background: #fff3e0;
+                border: 1px solid #ffcc80;
+                border-radius: 8px;
+                padding: 15px 20px;
+                margin: 20px 0;
+            }
+
+            .aviso::before {
+                content: "⚠️ ";
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+                background: #fff;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+
+            th, td {
+                padding: 12px 18px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+
+            th {
+                background-color: #1a1a2e;
+                color: #fff;
+                font-weight: 600;
+            }
+
+            tr:hover {
+                background-color: #f9f9f9;
+            }
+
+            .indice {
+                background: #fff;
+                border-radius: 10px;
+                padding: 25px 30px;
+                margin: 30px 0;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+
+            .indice h3 {
+                margin-top: 0;
+                margin-bottom: 15px;
+                color: #1a1a2e;
+            }
+
+            .indice ol {
+                padding-left: 20px;
+            }
+
+            .indice li {
+                margin-bottom: 6px;
+            }
+
+            .resumo-final {
+                background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
+                color: #fff;
+                border-radius: 10px;
+                padding: 30px;
+                margin-top: 40px;
+            }
+
+            .resumo-final h2 {
+                color: #f0c040;
+                border-left-color: #f0c040;
+                margin-top: 0;
+            }
+
+            .resumo-final p, .resumo-final li {
+                color: #ddd;
+            }
+
+            .resumo-final code {
+                background-color: #ffffff22;
+                color: #f0c040;
+            }
+
+            footer {
+                margin-top: 50px;
+                text-align: center;
+                color: #999;
+                font-size: 0.9rem;
+                padding-top: 20px;
+                border-top: 1px solid #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="index.html" class="voltar">&larr; Voltar para a página inicial</a>
+
+        <h1>Variáveis Primitivas em JavaScript</h1>
+        <p class="subtitulo">
+            Tudo que você precisa saber sobre os tipos fundamentais da linguagem
+        </p>
+
+        <!-- ÍNDICE -->
+        <div class="indice">
+            <h3>Nesta página</h3>
+            <ol>
+                <li><a href="#intro">O que são tipos primitivos?</a></li>
+                <li><a href="#string">String &mdash; o tipo texto</a></li>
+                <li><a href="#number">Number &mdash; o tipo numérico</a></li>
+                <li><a href="#boolean">Boolean &mdash; verdadeiro ou falso</a></li>
+                <li><a href="#undefined">Undefined &mdash; o valor indefinido</a></li>
+                <li><a href="#null">Null &mdash; o nada intencional</a></li>
+                <li><a href="#symbol">Symbol &mdash; o identificador único</a></li>
+                <li><a href="#bigint">BigInt &mdash; números gigantes</a></li>
+                <li><a href="#typeof">O operador typeof</a></li>
+                <li><a href="#coercao">Coerção de tipos</a></li>
+                <li><a href="#comparacao">Comparação: == vs ===</a></li>
+                <li><a href="#resumo">Resumo geral</a></li>
+            </ol>
+        </div>
+
+        <!-- INTRODUÇÃO -->
+        <section id="intro">
+            <h2>O que são tipos primitivos?</h2>
+            <p>
+                Em JavaScript, um <strong>tipo primitivo</strong> é um dado que não é um objeto e não possui métodos próprios.
+                São os blocos de construção mais básicos da linguagem. Pense neles como os <em>átomos</em> do JavaScript
+                &mdash; tudo o que existe de mais complexo (objetos, arrays, funções) é construído, no fundo, a partir deles.
+            </p>
+            <p>
+                Existem <strong>7 tipos primitivos</strong> no JavaScript moderno:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Exemplo</th>
+                        <th>Descrição rápida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>string</code></td>
+                        <td><code>"Olá, mundo!"</code></td>
+                        <td>Texto</td>
+                    </tr>
+                    <tr>
+                        <td><code>number</code></td>
+                        <td><code>42</code>, <code>3.14</code></td>
+                        <td>Números inteiros e decimais</td>
+                    </tr>
+                    <tr>
+                        <td><code>boolean</code></td>
+                        <td><code>true</code>, <code>false</code></td>
+                        <td>Verdadeiro ou falso</td>
+                    </tr>
+                    <tr>
+                        <td><code>undefined</code></td>
+                        <td><code>undefined</code></td>
+                        <td>Valor ainda não definido</td>
+                    </tr>
+                    <tr>
+                        <td><code>null</code></td>
+                        <td><code>null</code></td>
+                        <td>Ausência intencional de valor</td>
+                    </tr>
+                    <tr>
+                        <td><code>symbol</code></td>
+                        <td><code>Symbol("id")</code></td>
+                        <td>Identificador único (ES6+)</td>
+                    </tr>
+                    <tr>
+                        <td><code>bigint</code></td>
+                        <td><code>9007199254740992n</code></td>
+                        <td>Inteiros de precisão arbitrária (ES2020+)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="destaque">
+                <strong>Característica fundamental:</strong> primitivos são <strong>imutáveis</strong>.
+                Quando você "altera" uma string, por exemplo, o JavaScript na verdade cria uma
+                <em>nova</em> string e descarta a anterior. O valor original nunca muda na memória.
+            </div>
+        </section>
+
+        <!-- STRING -->
+        <div class="tipo-card string" id="string">
+            <span class="tipo-tag string">string</span>
+            <h2>1. String &mdash; o tipo texto</h2>
+            <p>
+                Strings representam sequências de caracteres. Em JavaScript, não existe um tipo <code>char</code>
+                separado como em C ou Java &mdash; um único caractere é simplesmente uma string de comprimento 1.
+            </p>
+
+            <h3>Três formas de declarar</h3>
+<pre>
+<span class="comment">// Aspas simples</span>
+<span class="keyword">let</span> nome = <span class="string">'Daniel'</span>;
+
+<span class="comment">// Aspas duplas</span>
+<span class="keyword">let</span> sobrenome = <span class="string">"Silva"</span>;
+
+<span class="comment">// Template literals (crase) — o mais poderoso</span>
+<span class="keyword">let</span> saudacao = <span class="string">`Olá, ${nome} ${sobrenome}!`</span>;
+<span class="function">console.log</span>(saudacao); <span class="comment">// "Olá, Daniel Silva!"</span>
+</pre>
+
+            <div class="curiosidade">
+                <strong>Template literals</strong> (com crase) foram introduzidos no ES6 e são extremamente úteis.
+                Além da interpolação com <code>${}</code>, eles permitem strings multi-linha sem precisar de <code>\n</code>.
+            </div>
+
+            <h3>Strings são imutáveis</h3>
+<pre>
+<span class="keyword">let</span> palavra = <span class="string">"JavaScript"</span>;
+palavra[<span class="number">0</span>] = <span class="string">"j"</span>; <span class="comment">// Não funciona! Nenhum erro, mas nada muda</span>
+<span class="function">console.log</span>(palavra); <span class="comment">// "JavaScript" — continua com J maiúsculo</span>
+
+<span class="comment">// Para "alterar", você cria uma nova string:</span>
+palavra = <span class="string">"j"</span> + palavra.<span class="function">slice</span>(<span class="number">1</span>);
+<span class="function">console.log</span>(palavra); <span class="comment">// "javaScript"</span>
+</pre>
+
+            <h3>Propriedades e métodos úteis</h3>
+<pre>
+<span class="keyword">let</span> frase = <span class="string">"  JavaScript é incrível!  "</span>;
+
+frase.<span class="function">length</span>;            <span class="comment">// 26 — comprimento total</span>
+frase.<span class="function">trim</span>();             <span class="comment">// "JavaScript é incrível!" — remove espaços</span>
+frase.<span class="function">toUpperCase</span>();      <span class="comment">// "  JAVASCRIPT É INCRÍVEL!  "</span>
+frase.<span class="function">toLowerCase</span>();      <span class="comment">// "  javascript é incrível!  "</span>
+frase.<span class="function">includes</span>(<span class="string">"Script"</span>); <span class="comment">// true</span>
+frase.<span class="function">indexOf</span>(<span class="string">"é"</span>);       <span class="comment">// 14 — posição da primeira ocorrência</span>
+frase.<span class="function">replace</span>(<span class="string">"incrível"</span>, <span class="string">"fantástico"</span>); <span class="comment">// troca texto</span>
+frase.<span class="function">split</span>(<span class="string">" "</span>);          <span class="comment">// divide em array por espaços</span>
+</pre>
+
+            <div class="aviso">
+                Lembre-se: nenhum desses métodos altera a string original. Todos retornam uma <strong>nova</strong> string.
+                Se você não guardar o resultado em uma variável, a alteração se perde.
+            </div>
+        </div>
+
+        <!-- NUMBER -->
+        <div class="tipo-card number" id="number">
+            <span class="tipo-tag number">number</span>
+            <h2>2. Number &mdash; o tipo numérico</h2>
+            <p>
+                Diferente de muitas linguagens (como Python, Java ou C), o JavaScript <strong>não distingue</strong>
+                entre inteiros e decimais. Tudo é <code>number</code>, e internamente todos os números são
+                representados como <strong>ponto flutuante de 64 bits</strong> (padrão IEEE 754).
+            </p>
+
+<pre>
+<span class="keyword">let</span> inteiro = <span class="number">42</span>;
+<span class="keyword">let</span> decimal = <span class="number">3.14</span>;
+<span class="keyword">let</span> negativo = <span class="number">-17</span>;
+<span class="keyword">let</span> exponencial = <span class="number">2.5e6</span>; <span class="comment">// 2.500.000</span>
+
+<span class="function">console.log</span>(<span class="keyword">typeof</span> inteiro);  <span class="comment">// "number"</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> decimal);  <span class="comment">// "number" — o mesmo tipo!</span>
+</pre>
+
+            <h3>O problema clássico do ponto flutuante</h3>
+<pre>
+<span class="function">console.log</span>(<span class="number">0.1</span> + <span class="number">0.2</span>); <span class="comment">// 0.30000000000000004 😱</span>
+<span class="function">console.log</span>(<span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span>); <span class="comment">// false!</span>
+</pre>
+
+            <div class="curiosidade">
+                Isso não é um bug do JavaScript &mdash; é uma limitação da representação binária de números decimais
+                que afeta <em>todas</em> as linguagens que usam ponto flutuante (C, Java, Python...).
+                Para cálculos financeiros, considere trabalhar com centavos (inteiros) ou usar bibliotecas especializadas.
+            </div>
+
+            <h3>Valores especiais do tipo Number</h3>
+<pre>
+<span class="function">console.log</span>(<span class="number">1</span> / <span class="number">0</span>);          <span class="comment">// Infinity</span>
+<span class="function">console.log</span>(-<span class="number">1</span> / <span class="number">0</span>);         <span class="comment">// -Infinity</span>
+<span class="function">console.log</span>(<span class="string">"abc"</span> * <span class="number">2</span>);      <span class="comment">// NaN (Not a Number)</span>
+
+<span class="comment">// NaN é estranho: ele não é igual a ele mesmo!</span>
+<span class="function">console.log</span>(NaN === NaN);      <span class="comment">// false</span>
+<span class="function">console.log</span>(<span class="function">isNaN</span>(NaN));       <span class="comment">// true — use isNaN() para verificar</span>
+<span class="function">console.log</span>(Number.<span class="function">isNaN</span>(NaN)); <span class="comment">// true — versão mais segura (ES6)</span>
+</pre>
+
+            <h3>Limites do Number</h3>
+<pre>
+<span class="function">console.log</span>(Number.MAX_SAFE_INTEGER); <span class="comment">// 9007199254740991</span>
+<span class="function">console.log</span>(Number.MIN_SAFE_INTEGER); <span class="comment">// -9007199254740991</span>
+
+<span class="comment">// Acima disso, a precisão se perde:</span>
+<span class="function">console.log</span>(<span class="number">9007199254740992</span> === <span class="number">9007199254740993</span>); <span class="comment">// true! 😨</span>
+<span class="comment">// Para números maiores, use BigInt</span>
+</pre>
+        </div>
+
+        <!-- BOOLEAN -->
+        <div class="tipo-card boolean" id="boolean">
+            <span class="tipo-tag boolean">boolean</span>
+            <h2>3. Boolean &mdash; verdadeiro ou falso</h2>
+            <p>
+                O tipo boolean é o mais simples: só tem dois valores possíveis, <code>true</code> e <code>false</code>.
+                É a base de toda lógica condicional no JavaScript.
+            </p>
+
+<pre>
+<span class="keyword">let</span> maiorDeIdade = <span class="boolean">true</span>;
+<span class="keyword">let</span> temCarteira = <span class="boolean">false</span>;
+
+<span class="keyword">if</span> (maiorDeIdade && temCarteira) {
+    <span class="function">console.log</span>(<span class="string">"Pode dirigir!"</span>);
+} <span class="keyword">else</span> {
+    <span class="function">console.log</span>(<span class="string">"Não pode dirigir."</span>);
+}
+</pre>
+
+            <h3>Valores truthy e falsy</h3>
+            <p>
+                Em JavaScript, <strong>qualquer valor</strong> pode ser avaliado como booleano em um contexto
+                condicional (como um <code>if</code>). Valores que se comportam como <code>false</code>
+                são chamados de <strong>falsy</strong>, e os que se comportam como <code>true</code> são <strong>truthy</strong>.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Falsy (são apenas 8!)</th>
+                        <th>Truthy (todo o resto)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>false</code></td>
+                        <td><code>true</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>0</code>, <code>-0</code>, <code>0n</code></td>
+                        <td>Qualquer número diferente de zero</td>
+                    </tr>
+                    <tr>
+                        <td><code>""</code> (string vazia)</td>
+                        <td><code>"qualquer texto"</code> (mesmo <code>"false"</code>!)</td>
+                    </tr>
+                    <tr>
+                        <td><code>null</code></td>
+                        <td><code>{}</code> (objeto vazio &mdash; sim, é truthy!)</td>
+                    </tr>
+                    <tr>
+                        <td><code>undefined</code></td>
+                        <td><code>[]</code> (array vazio &mdash; também truthy!)</td>
+                    </tr>
+                    <tr>
+                        <td><code>NaN</code></td>
+                        <td>Funções, Dates, etc.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="aviso">
+                Cuidado com as pegadinhas: <code>"0"</code> (string "zero") e <code>"false"</code> (string "false")
+                são <strong>truthy</strong>, porque são strings não vazias. Já o número <code>0</code> e o boolean
+                <code>false</code> são falsy. Isso confunde muita gente.
+            </div>
+
+<pre>
+<span class="comment">// Exemplos que surpreendem:</span>
+<span class="keyword">if</span> (<span class="string">"0"</span>)    <span class="function">console.log</span>(<span class="string">"truthy!"</span>);  <span class="comment">// imprime! "0" é string não vazia</span>
+<span class="keyword">if</span> ([])      <span class="function">console.log</span>(<span class="string">"truthy!"</span>);  <span class="comment">// imprime! array vazio é truthy</span>
+<span class="keyword">if</span> (<span class="number">0</span>)       <span class="function">console.log</span>(<span class="string">"truthy!"</span>);  <span class="comment">// NÃO imprime. 0 é falsy</span>
+<span class="keyword">if</span> (<span class="string">""</span>)      <span class="function">console.log</span>(<span class="string">"truthy!"</span>);  <span class="comment">// NÃO imprime. string vazia é falsy</span>
+</pre>
+        </div>
+
+        <!-- UNDEFINED -->
+        <div class="tipo-card undefined" id="undefined">
+            <span class="tipo-tag undefined">undefined</span>
+            <h2>4. Undefined &mdash; o valor indefinido</h2>
+            <p>
+                <code>undefined</code> significa que uma variável foi <strong>declarada</strong>, mas <strong>nenhum valor
+                foi atribuído</strong> a ela. É o estado padrão de toda variável recém-criada.
+            </p>
+
+<pre>
+<span class="keyword">let</span> x;
+<span class="function">console.log</span>(x);          <span class="comment">// undefined</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> x);   <span class="comment">// "undefined"</span>
+
+<span class="comment">// Funções sem return explícito retornam undefined:</span>
+<span class="keyword">function</span> <span class="function">naoRetornaNada</span>() {
+    <span class="keyword">let</span> a = <span class="number">1</span> + <span class="number">1</span>;
+}
+<span class="function">console.log</span>(<span class="function">naoRetornaNada</span>()); <span class="comment">// undefined</span>
+
+<span class="comment">// Acessar propriedade inexistente também dá undefined:</span>
+<span class="keyword">let</span> pessoa = { nome: <span class="string">"Ana"</span> };
+<span class="function">console.log</span>(pessoa.idade); <span class="comment">// undefined (a propriedade não existe)</span>
+</pre>
+
+            <div class="destaque">
+                <strong>Regra de ouro:</strong> nunca atribua <code>undefined</code> manualmente a uma variável.
+                Se você quer indicar que algo está "vazio" de propósito, use <code>null</code>.
+                O <code>undefined</code> deve ser reservado para o JavaScript usar internamente.
+            </div>
+        </div>
+
+        <!-- NULL -->
+        <div class="tipo-card null" id="null">
+            <span class="tipo-tag null">null</span>
+            <h2>5. Null &mdash; o nada intencional</h2>
+            <p>
+                Enquanto <code>undefined</code> significa "ninguém definiu isso ainda", <code>null</code>
+                significa <strong>"eu, programador, estou dizendo explicitamente que isso está vazio"</strong>.
+                É uma escolha consciente.
+            </p>
+
+<pre>
+<span class="keyword">let</span> usuario = <span class="keyword">null</span>; <span class="comment">// Ainda não temos um usuário logado</span>
+<span class="function">console.log</span>(usuario);        <span class="comment">// null</span>
+
+<span class="comment">// Mais tarde, quando o usuário logar:</span>
+usuario = { nome: <span class="string">"Carlos"</span>, email: <span class="string">"carlos@email.com"</span> };
+</pre>
+
+            <h3>O bug histórico do typeof null</h3>
+<pre>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="keyword">null</span>); <span class="comment">// "object" — WAT?! 🤯</span>
+</pre>
+
+            <div class="curiosidade">
+                Isso é um <strong>bug</strong> que existe desde a primeira versão do JavaScript em 1995.
+                Na implementação original, os valores eram representados por uma tag de tipo + um valor.
+                Objetos tinham a tag <code>000</code>, e <code>null</code> era representado como o ponteiro nulo
+                (<code>0x00</code>), que também começa com <code>000</code>. Por isso o <code>typeof</code>
+                o identifica como "object". Esse bug nunca foi corrigido porque quebraria milhões de sites.
+            </div>
+
+            <h3>Diferença entre null e undefined</h3>
+<pre>
+<span class="function">console.log</span>(<span class="keyword">null</span> == <span class="keyword">undefined</span>);   <span class="comment">// true  — "igualdade frouxa" os considera iguais</span>
+<span class="function">console.log</span>(<span class="keyword">null</span> === <span class="keyword">undefined</span>);  <span class="comment">// false — "igualdade estrita" sabe que são diferentes</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="keyword">null</span>);         <span class="comment">// "object" (bug histórico)</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="keyword">undefined</span>);    <span class="comment">// "undefined"</span>
+</pre>
+        </div>
+
+        <!-- SYMBOL -->
+        <div class="tipo-card symbol" id="symbol">
+            <span class="tipo-tag symbol">symbol</span>
+            <h2>6. Symbol &mdash; o identificador único</h2>
+            <p>
+                Introduzido no ES6 (2015), o <code>Symbol</code> cria um valor <strong>completamente único</strong>.
+                Mesmo que você crie dois Symbols com a mesma descrição, eles serão diferentes.
+            </p>
+
+<pre>
+<span class="keyword">let</span> id1 = <span class="function">Symbol</span>(<span class="string">"id"</span>);
+<span class="keyword">let</span> id2 = <span class="function">Symbol</span>(<span class="string">"id"</span>);
+
+<span class="function">console.log</span>(id1 === id2); <span class="comment">// false — cada Symbol é único!</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> id1);  <span class="comment">// "symbol"</span>
+</pre>
+
+            <h3>Para que serve?</h3>
+            <p>
+                Symbols são usados para criar propriedades "escondidas" em objetos, que não aparecem
+                em loops <code>for...in</code> e não colidem com outras propriedades.
+                Bibliotecas e frameworks os utilizam bastante.
+            </p>
+
+<pre>
+<span class="keyword">const</span> ID_SECRETO = <span class="function">Symbol</span>(<span class="string">"id"</span>);
+<span class="keyword">let</span> usuario = {
+    nome: <span class="string">"Maria"</span>,
+    [ID_SECRETO]: <span class="number">12345</span>
+};
+
+<span class="function">console.log</span>(usuario[ID_SECRETO]); <span class="comment">// 12345</span>
+<span class="function">console.log</span>(usuario.nome);        <span class="comment">// "Maria"</span>
+
+<span class="comment">// O Symbol não aparece em loops normais:</span>
+<span class="keyword">for</span> (<span class="keyword">let</span> chave <span class="keyword">in</span> usuario) {
+    <span class="function">console.log</span>(chave); <span class="comment">// Só imprime "nome"</span>
+}
+</pre>
+
+            <div class="destaque">
+                <strong>Na prática:</strong> se você está começando, não se preocupe muito com Symbols.
+                Eles são mais relevantes quando você estiver criando bibliotecas ou trabalhando
+                com meta-programação.
+            </div>
+        </div>
+
+        <!-- BIGINT -->
+        <div class="tipo-card bigint" id="bigint">
+            <span class="tipo-tag bigint">bigint</span>
+            <h2>7. BigInt &mdash; números gigantes</h2>
+            <p>
+                O tipo <code>BigInt</code> (ES2020) resolve o problema de precisão para números inteiros
+                muito grandes, que excedem o limite seguro do <code>Number</code> (2<sup>53</sup> - 1).
+            </p>
+
+<pre>
+<span class="comment">// Problema com Number grande:</span>
+<span class="function">console.log</span>(<span class="number">9007199254740991</span> + <span class="number">1</span>); <span class="comment">// 9007199254740992 ✅</span>
+<span class="function">console.log</span>(<span class="number">9007199254740991</span> + <span class="number">2</span>); <span class="comment">// 9007199254740992 ❌ (deveria ser ...993)</span>
+
+<span class="comment">// Solução com BigInt (adicione 'n' no final):</span>
+<span class="keyword">let</span> grande = <span class="number">9007199254740991n</span>;
+<span class="function">console.log</span>(grande + <span class="number">2n</span>); <span class="comment">// 9007199254740993n ✅</span>
+
+<span class="function">console.log</span>(<span class="keyword">typeof</span> grande); <span class="comment">// "bigint"</span>
+</pre>
+
+            <div class="aviso">
+                BigInt <strong>não pode ser misturado</strong> com Number em operações aritméticas.
+                <code>10n + 5</code> lança um erro. Você precisa converter explicitamente:
+                <code>10n + BigInt(5)</code> ou <code>Number(10n) + 5</code>.
+            </div>
+        </div>
+
+        <!-- TYPEOF -->
+        <section id="typeof">
+            <h2>O operador typeof</h2>
+            <p>
+                O <code>typeof</code> é a ferramenta principal para descobrir o tipo de um valor.
+                Ele retorna uma <strong>string</strong> indicando o tipo.
+            </p>
+
+<pre>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="string">"texto"</span>);      <span class="comment">// "string"</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="number">42</span>);           <span class="comment">// "number"</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="boolean">true</span>);         <span class="comment">// "boolean"</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="keyword">undefined</span>);    <span class="comment">// "undefined"</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="keyword">null</span>);         <span class="comment">// "object"    ⚠️ bug histórico!</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="function">Symbol</span>());     <span class="comment">// "symbol"</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="number">42n</span>);          <span class="comment">// "bigint"</span>
+
+<span class="comment">// Bônus — estes NÃO são primitivos:</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> {});           <span class="comment">// "object"</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> []);           <span class="comment">// "object"  (arrays são objetos!)</span>
+<span class="function">console.log</span>(<span class="keyword">typeof</span> <span class="keyword">function</span>(){}); <span class="comment">// "function" (caso especial)</span>
+</pre>
+        </section>
+
+        <!-- COERÇÃO -->
+        <section id="coercao">
+            <h2>Coerção de tipos</h2>
+            <p>
+                JavaScript é uma linguagem de <strong>tipagem dinâmica e fraca</strong>. Isso significa que ele
+                tenta converter tipos automaticamente quando necessário. Essa conversão automática é chamada
+                de <strong>coerção</strong> (ou <em>type coercion</em>).
+            </p>
+
+            <h3>Coerção implícita (automática)</h3>
+<pre>
+<span class="comment">// O operador + com string CONCATENA:</span>
+<span class="function">console.log</span>(<span class="string">"5"</span> + <span class="number">3</span>);     <span class="comment">// "53" — number virou string!</span>
+<span class="function">console.log</span>(<span class="string">"5"</span> + <span class="boolean">true</span>);  <span class="comment">// "5true"</span>
+
+<span class="comment">// Mas outros operadores CONVERTEM para número:</span>
+<span class="function">console.log</span>(<span class="string">"5"</span> - <span class="number">3</span>);     <span class="comment">// 2 — string virou number!</span>
+<span class="function">console.log</span>(<span class="string">"5"</span> * <span class="number">2</span>);     <span class="comment">// 10</span>
+<span class="function">console.log</span>(<span class="string">"5"</span> / <span class="number">1</span>);     <span class="comment">// 5</span>
+<span class="function">console.log</span>(<span class="boolean">true</span> + <span class="number">1</span>);    <span class="comment">// 2 — true vira 1</span>
+<span class="function">console.log</span>(<span class="boolean">false</span> + <span class="number">1</span>);   <span class="comment">// 1 — false vira 0</span>
+</pre>
+
+            <h3>Coerção explícita (manual)</h3>
+<pre>
+<span class="comment">// Para String:</span>
+<span class="function">String</span>(<span class="number">42</span>);        <span class="comment">// "42"</span>
+(<span class="number">42</span>).<span class="function">toString</span>();   <span class="comment">// "42"</span>
+
+<span class="comment">// Para Number:</span>
+<span class="function">Number</span>(<span class="string">"42"</span>);      <span class="comment">// 42</span>
+<span class="function">parseInt</span>(<span class="string">"42px"</span>);  <span class="comment">// 42 — ignora o que não é número</span>
+<span class="function">parseFloat</span>(<span class="string">"3.14"</span>); <span class="comment">// 3.14</span>
++<span class="string">"42"</span>;             <span class="comment">// 42 — truque com operador unário +</span>
+
+<span class="comment">// Para Boolean:</span>
+<span class="function">Boolean</span>(<span class="number">0</span>);        <span class="comment">// false</span>
+<span class="function">Boolean</span>(<span class="string">"texto"</span>);  <span class="comment">// true</span>
+!!<span class="string">"texto"</span>;         <span class="comment">// true — truque com dupla negação</span>
+</pre>
+
+            <div class="aviso">
+                A coerção implícita é uma das maiores fontes de bugs em JavaScript.
+                Sempre que possível, faça conversões <strong>explícitas</strong> para deixar seu código
+                mais previsível e fácil de entender.
+            </div>
+        </section>
+
+        <!-- COMPARAÇÃO -->
+        <section id="comparacao">
+            <h2>Comparação: == vs ===</h2>
+            <p>
+                Essa é uma das distinções mais importantes do JavaScript.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operador</th>
+                        <th>Nome</th>
+                        <th>O que faz</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>==</code></td>
+                        <td>Igualdade abstrata (frouxa)</td>
+                        <td>Compara valores <strong>com</strong> coerção de tipos</td>
+                    </tr>
+                    <tr>
+                        <td><code>===</code></td>
+                        <td>Igualdade estrita</td>
+                        <td>Compara valores <strong>sem</strong> coerção de tipos</td>
+                    </tr>
+                </tbody>
+            </table>
+
+<pre>
+<span class="comment">// Igualdade frouxa (==) — faz coerção antes de comparar</span>
+<span class="function">console.log</span>(<span class="number">5</span> == <span class="string">"5"</span>);       <span class="comment">// true  — converte string para number</span>
+<span class="function">console.log</span>(<span class="number">0</span> == <span class="boolean">false</span>);     <span class="comment">// true  — converte false para 0</span>
+<span class="function">console.log</span>(<span class="string">""</span> == <span class="boolean">false</span>);    <span class="comment">// true  — ambos viram 0</span>
+<span class="function">console.log</span>(<span class="keyword">null</span> == <span class="keyword">undefined</span>); <span class="comment">// true — caso especial</span>
+
+<span class="comment">// Igualdade estrita (===) — compara tipo E valor</span>
+<span class="function">console.log</span>(<span class="number">5</span> === <span class="string">"5"</span>);      <span class="comment">// false — tipos diferentes!</span>
+<span class="function">console.log</span>(<span class="number">0</span> === <span class="boolean">false</span>);    <span class="comment">// false</span>
+<span class="function">console.log</span>(<span class="string">""</span> === <span class="boolean">false</span>);   <span class="comment">// false</span>
+<span class="function">console.log</span>(<span class="keyword">null</span> === <span class="keyword">undefined</span>); <span class="comment">// false</span>
+</pre>
+
+            <div class="destaque">
+                <strong>Regra de ouro:</strong> <strong>sempre use <code>===</code></strong> (igualdade estrita).
+                O <code>==</code> tem regras de coerção tão complexas que nem desenvolvedores experientes
+                conseguem prever todos os resultados. Usar <code>===</code> evita uma enorme categoria de bugs.
+            </div>
+        </section>
+
+        <!-- RESUMO FINAL -->
+        <div class="resumo-final" id="resumo">
+            <h2>Resumo geral</h2>
+            <p>Aqui vai o que você precisa lembrar:</p>
+            <ul style="padding-left: 20px;">
+                <li><strong>7 tipos primitivos:</strong> <code>string</code>, <code>number</code>, <code>boolean</code>,
+                    <code>undefined</code>, <code>null</code>, <code>symbol</code>, <code>bigint</code>.</li>
+                <li><strong>Primitivos são imutáveis</strong> &mdash; operações criam novos valores, não alteram os existentes.</li>
+                <li><strong>JavaScript é dinamicamente tipado</strong> &mdash; variáveis podem mudar de tipo a qualquer momento.</li>
+                <li><code>undefined</code> = "ninguém definiu"; <code>null</code> = "eu defini como vazio".</li>
+                <li><code>typeof null === "object"</code> é um bug histórico. Aceite e siga em frente.</li>
+                <li>Conheça os valores <strong>falsy</strong> &mdash; eles aparecem em entrevistas e em bugs reais.</li>
+                <li><strong>Sempre use <code>===</code></strong> em vez de <code>==</code>.</li>
+                <li>Cuidado com <strong>coerção implícita</strong> &mdash; prefira conversões explícitas.</li>
+                <li><code>0.1 + 0.2 !== 0.3</code> &mdash; isso é ponto flutuante, não um bug do JS.</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>
+                <a href="index.html">&larr; Voltar para a página inicial</a>
+            </p>
+            <p>JavaScript Básico &mdash; Estudos</p>
+        </footer>
+    </body>
+</html>

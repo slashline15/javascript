@@ -27,6 +27,6 @@ console.log( variavel );
 variavel = "Novo valor";
 console.log( variavel );
 
-variavel = prompt("Informe um novo valor para essa variável: ");
-alert(variavel);
-console.log( variavel );
+// variavel = prompt("Informe um novo valor para essa variável: ");
+// alert(variavel);
+// console.log( variavel );
